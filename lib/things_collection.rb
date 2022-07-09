@@ -2,7 +2,7 @@
 
 require_relative 'thing'
 
-class ALotOfThings
+class ThingsCollection
   def self.from_dir(dir_path)
     things = []
     Dir["#{dir_path}/*.txt"].each do |path|
@@ -16,13 +16,6 @@ class ALotOfThings
     @types = types_of_things
   end
 
-  def things_of_the_type
-    @things.each do |thing|
-      @types[thing.type] << thing
-    end
-    @types
-  end
-
   def suitable_clothing(user_input)
     @types.each_key do |type|
       @types[type].map! do |thing|
@@ -30,10 +23,6 @@ class ALotOfThings
       end
       @types[type].delete(nil)
     end
-    @types
-  end
-
-  def recommendation
     result = []
     @types.each_key do |type|
       if @types[type].empty?
@@ -49,10 +38,9 @@ class ALotOfThings
   private
 
   def types_of_things
-    thing_types = {}
-    @things.each do |thing|
-      thing_types[thing.type] = []
+    @things.each_with_object({}) do |thing, obj|
+      obj[thing.type] ||= []
+      obj[thing.type] << thing
     end
-    thing_types
   end
 end
