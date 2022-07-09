@@ -1,11 +1,6 @@
 class Thing
   attr_reader :title, :type, :temperature, :temperature_range
 
-  def self.from_file(file_name)
-    lines = File.readlines(file_name, chomp: true)
-    Thing.new(lines[0], lines[1], lines[2])
-  end
-
   def initialize(title, type, temperature_range)
     @title = title
     @type = type

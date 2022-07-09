@@ -6,7 +6,8 @@ class ThingsCollection
   def self.from_dir(dir_path)
     things = []
     Dir["#{dir_path}/*.txt"].each do |path|
-      things << Thing.from_file(path)
+      lines = File.readlines(path, chomp: true)
+      things << Thing.new(lines[0], lines[1], lines[2])
     end
     new(things)
   end
