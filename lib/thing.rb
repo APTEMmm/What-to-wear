@@ -12,10 +12,13 @@ class Thing
     @temperature_range.include?(user_input)
   end
 
+  def to_s
+    "#{@title} #{@temperature}"
+  end
+
   private
 
   def parse_range(range)
-    range = range.gsub(/[^0-9 -]/, '').split(' ')
-    [*range[0].to_i..range[1].to_i]
+    Range.new(*range.gsub(/[^0-9 -]/, '').split(' ').map(&:to_i))
   end
 end
