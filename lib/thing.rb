@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Thing
   attr_reader :title, :type, :temperature, :temperature_range
 
